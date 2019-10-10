@@ -1,84 +1,89 @@
 {
   "rooms": [
     {
-      "lights": [
-        {
-          "isOn": false,
-          "id": "1"
-        },
-        {
-          "isOn": true,
-          "id": "2"
-        }
-      ],
-      "doors": [
-        {
+      "devices": {
+        "1": {
           "id": "1",
-          "isOpen": false
+          "isOn": false,
+          "type": "light"
+        },
+        "2": {
+          "id": "2",
+          "isOn": true,
+          "type": "light"
         }
-      ],
+      },
       "name": "kitchen"
     },
     {
-      "lights": [
-        {
-          "isOn": true,
-          "id": "3"
-        }
-      ],
-      "doors": [
-        {
+      "devices": {
+        "2": {
           "id": "2",
-          "isOpen": false
+          "isOpen": false,
+          "type": "door"
+        },
+        "3": {
+          "id": "3",
+          "isOn": true,
+          "type": "light"
         }
-      ],
+      },
       "name": "bathroom"
     },
     {
-      "lights": [
-        {
-          "isOn": false,
-          "id": "4"
-        },
-        {
-          "isOn": false,
-          "id": "5"
-        },
-        {
-          "isOn": false,
-          "id": "6"
-        }
-      ],
-      "doors": [
-        {
+      "devices": {
+        "3": {
           "id": "3",
-          "isOpen": true
+          "isOpen": true,
+          "type": "door"
+        },
+        "4": {
+          "id": "4",
+          "isOn": false,
+          "type": "light"
+        },
+        "5": {
+          "id": "5",
+          "isOn": false,
+          "type": "light"
+        },
+        "6": {
+          "id": "6",
+          "isOn": false,
+          "type": "light"
         }
-      ],
+      },
       "name": "bedroom"
     },
     {
-      "lights": [
-        {
-          "isOn": false,
-          "id": "7"
-        },
-        {
-          "isOn": false,
-          "id": "8"
-        },
-        {
-          "isOn": false,
-          "id": "9"
-        }
-      ],
-      "doors": [
-        {
+      "devices": {
+        "4": {
           "id": "4",
-          "isOpen": false
+          "isOpen": false,
+          "type": "door"
+        },
+        "7": {
+          "id": "7",
+          "isOn": false,
+          "type": "light"
+        },
+        "8": {
+          "id": "8",
+          "isOn": false,
+          "type": "light"
+        },
+        "9": {
+          "id": "9",
+          "isOn": false,
+          "type": "light"
         }
-      ],
+      },
       "name": "hall"
+    }
+  ],
+  "complexTriggers": [
+    {
+      "type": "turnoffalllights"
     }
   ]
 }

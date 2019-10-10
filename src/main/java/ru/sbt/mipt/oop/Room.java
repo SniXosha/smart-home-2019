@@ -1,24 +1,27 @@
 package ru.sbt.mipt.oop;
 
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Room {
-    private Collection<Light> lights;
-    private Collection<Door> doors;
+    private Map<String, Device> devices;
     private String name;
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
+    public Room(String name, Map<String, Device> devices) {
+        this.devices = devices;
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
-        return lights;
+    public Room(String name) {
+        this(name, new HashMap<String, Device>());
     }
 
-    public Collection<Door> getDoors() {
-        return doors;
+    public Map<String, Device> getDevices() {
+        return devices;
+    }
+
+    public void addDevice(Device device) {
+        devices.put(device.getId(), device);
     }
 
     public String getName() {
