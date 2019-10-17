@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class Door implements Device {
+public class Door implements Device, Actionable {
     private final String id;
     private boolean isOpen;
     private final String type = "door";
@@ -15,12 +15,48 @@ public class Door implements Device {
     }
 
     @Override
+    public void execute(Action action) {
+        executeIdAction(action);
+        executeCloseOpen(action);
+    }
+
+    @Override
     public String getType() {
-        return "door";
+        return type;
     }
 
     @Override
     public String getId() {
         return id;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    private boolean isIdAction(Action action) {
+        return action.getTargetClass().equals(Door.class) &&
+                action.getCommand().equals("id") &&
+                action.getAnswer().equals(HallDoorEventProcessor.deviceInitAnswer);
+    }
+
+    private void executeIdAction(Action action) {
+        if (isIdAction(action) && action.getId().equals(id)) {
+            action.setAnswer("true");
+        }
+    }
+
+    private void executeCloseOpen(Action action) {
+        if (action.getId() != null && !action.getId().equals(id)) {
+            return;
+        }
+        if (!action.getTargetClass().equals(this.getClass())) {
+            return;
+        }
+        if (action.getCommand().equals("open")) {
+            setOpen(true);
+        } else if (action.getCommand().equals("close")) {
+            setOpen(false);
+        }
     }
 }

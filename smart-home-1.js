@@ -1,84 +1,89 @@
 {
   "rooms": [
     {
-      "devices": {
-        "1": {
+      "devices": [
+        {
           "id": "1",
           "isOn": false,
           "type": "light"
         },
-        "2": {
+        {
           "id": "2",
           "isOn": true,
           "type": "light"
         }
-      },
-      "name": "kitchen"
+      ],
+      "name": "kitchen",
+      "type": "room"
     },
     {
-      "devices": {
-        "2": {
+      "devices": [
+        {
+          "id": "3",
+          "isOn": true,
+          "type": "light"
+        },
+        {
           "id": "2",
           "isOpen": false,
           "type": "door"
-        },
-        "3": {
-          "id": "3",
-          "isOn": true,
-          "type": "light"
         }
-      },
-      "name": "bathroom"
+      ],
+      "name": "bathroom",
+      "type": "room"
     },
     {
-      "devices": {
-        "3": {
-          "id": "3",
-          "isOpen": true,
-          "type": "door"
-        },
-        "4": {
+      "devices": [
+        {
           "id": "4",
           "isOn": false,
           "type": "light"
         },
-        "5": {
+        {
           "id": "5",
           "isOn": false,
           "type": "light"
         },
-        "6": {
+        {
           "id": "6",
           "isOn": false,
           "type": "light"
+        },
+        {
+          "id": "3",
+          "isOpen": true,
+          "type": "door"
         }
-      },
-      "name": "bedroom"
+      ],
+      "name": "bedroom",
+      "type": "room"
     },
     {
-      "devices": {
-        "4": {
-          "id": "4",
-          "isOpen": false,
-          "type": "door"
-        },
-        "7": {
+      "devices": [
+        {
           "id": "7",
           "isOn": false,
           "type": "light"
         },
-        "8": {
+        {
           "id": "8",
           "isOn": false,
           "type": "light"
         },
-        "9": {
+        {
           "id": "9",
           "isOn": false,
           "type": "light"
+        },
+        {
+          "id": "4",
+          "isOpen": false,
+          "type": "door"
         }
-      },
-      "name": "hall"
+      ],
+      "name": "hall",
+      "type": "room"
     }
-  ]
+  ],
+  "type": "smarthome"
 }

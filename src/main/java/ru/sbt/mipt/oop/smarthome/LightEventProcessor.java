@@ -4,15 +4,24 @@ public class LightEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
 
+    private Action parseEvent(SensorEvent event) {
+        String command = "none";
+        if (event.getType() == SensorEventType.LIGHT_ON) {
+            command = "on";
+        } else if (event.getType() == SensorEventType.LIGHT_OFF) {
+            command = "off";
+        }
+        if (command.equals("none")) {
+            return null;
+        }
+        return new StaticAction(Light.class, event.getObjectId(), command);
+    }
+
     @Override
     public void processEvent(SensorEvent event) {
-        Device device = smartHome.getDevice(event.getObjectId());
-        if (device instanceof Light) {
-            if (event.getType() == SensorEventType.LIGHT_OFF) {
-                ((Light) device).setOn(false);
-            } else if (event.getType() == SensorEventType.LIGHT_ON){
-                ((Light) device).setOn(true);
-            }
+        Action action = parseEvent(event);
+        if (action != null) {
+            smartHome.execute(action);
         }
     }
 

@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop.smarthome;
 
-import java.util.Collection;
-
 public class HallDoorEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
+    public static String roomInitAnswer = "/room";
+    public static String deviceInitAnswer = "/device";
 
     @Override
     public void processEvent(SensorEvent event) {
@@ -12,23 +12,14 @@ public class HallDoorEventProcessor implements EventProcessor {
             return;
         }
 
-        Room room = smartHome.getRoom("hall");
-        if (room == null) {
+        Action hallDoorAction = new StaticAction(Room.class, event.getObjectId(), "halldoor");
+        hallDoorAction.setAnswer(HallDoorEventProcessor.roomInitAnswer);
+        smartHome.execute(hallDoorAction);
+        if (!hallDoorAction.getAnswer().equals("true")) {
             return;
         }
-        Device device = room.getDevice(event.getObjectId());
-        if (device == null) {
-            return;
-        }
-        if (!(device instanceof Door)) {
-            return;
-        }
-        ((Door) device).setOpen(false);
-
-        Collection<Device> lightDevices = smartHome.getDevicesOfClass(Light.class);
-        for (Device lightDevice : lightDevices) {
-            ((Light) lightDevice).setOn(false);
-        }
+        smartHome.execute(new StaticAction(Door.class, event.getObjectId(), "close"));
+        smartHome.execute(new StaticAction(Light.class, null, "off"));
     }
 
     @Override

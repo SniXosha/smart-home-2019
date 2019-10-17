@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-class DeviceDeserializer<T extends Device> implements JsonDeserializer<T> {
+class ActionableDeserializer<T extends Actionable> implements JsonDeserializer<T> {
 
     @SuppressWarnings("unchecked")
     public T deserialize(final JsonElement jsonElement, final Type type,
@@ -27,6 +27,8 @@ class DeviceDeserializer<T extends Device> implements JsonDeserializer<T> {
             deviceClass = (Class<T>) Light.class;
         } else if (typeString.equals("door")) {
             deviceClass = (Class<T>) Door.class;
+        } else if (typeString.equals("room")) {
+            deviceClass = (Class<T>) Room.class;
         }
         return deserializationContext.deserialize(jsonObject, deviceClass);
     }
@@ -39,7 +41,7 @@ public class HomeBuilder {
 
     public static SmartHome loadSmartHome()  throws IOException {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Device.class, new DeviceDeserializer<>());
+        builder.registerTypeAdapter(Actionable.class, new ActionableDeserializer<>());
         Gson gson = builder.create();
 
         String json = new String(Files.readAllBytes(Paths.get(filepath)));
@@ -52,24 +54,24 @@ public class HomeBuilder {
         Room bedroom = new Room("bedroom");
         Room hall = new Room("hall");
 
-        kitchen.addDevice(new Light("1", false));
-        kitchen.addDevice(new Light("2", true));
+        kitchen.addActionable(new Light("1", false));
+        kitchen.addActionable(new Light("2", true));
 
-        bathroom.addDevice(new Light("3", true));
-        bathroom.addDevice(new Door("2", false));
+        bathroom.addActionable(new Light("3", true));
+        bathroom.addActionable(new Door("2", false));
 
-        bedroom.addDevice(new Light("4", false));
-        bedroom.addDevice(new Light("5", false));
-        bedroom.addDevice(new Light("6", false));
-        bedroom.addDevice(new Door("3", true));
+        bedroom.addActionable(new Light("4", false));
+        bedroom.addActionable(new Light("5", false));
+        bedroom.addActionable(new Light("6", false));
+        bedroom.addActionable(new Door("3", true));
 
-        hall.addDevice(new Light("7", false));
-        hall.addDevice(new Light("8", false));
-        hall.addDevice(new Light("9", false));
-        hall.addDevice(new Door("4", false));
+        hall.addActionable(new Light("7", false));
+        hall.addActionable(new Light("8", false));
+        hall.addActionable(new Light("9", false));
+        hall.addActionable(new Door("4", false));
 
 
-        List<Room> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
+        List<Actionable> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
         SmartHome smartHome = new SmartHome(rooms);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome;
 
-public class Light implements Device {
+public class Light implements Actionable, Device {
     private final String id;
     private boolean isOn;
     private final String type = "light";
@@ -16,6 +16,21 @@ public class Light implements Device {
 
     public boolean isOn() {
         return isOn;
+    }
+
+    @Override
+    public void execute(Action action) {
+        if (action.getId() != null && !action.getId().equals(id)) {
+            return;
+        }
+        if (!action.getTargetClass().equals(this.getClass())) {
+            return;
+        }
+        if (action.getCommand().equals("on")) {
+            setOn(true);
+        } else if (action.getCommand().equals("off")) {
+            setOn(false);
+        }
     }
 
     @Override

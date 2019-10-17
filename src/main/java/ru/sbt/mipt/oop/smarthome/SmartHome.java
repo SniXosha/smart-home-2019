@@ -1,57 +1,30 @@
 package ru.sbt.mipt.oop.smarthome;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.Iterator;
 
-public class SmartHome {
-    private final Collection<Room> rooms;
+public class SmartHome implements Actionable, Iterable<Actionable> {
+    private final Collection<Actionable> rooms;
+    private final String type = "smarthome";
 
-    public SmartHome(Collection<Room> rooms) {
+    public SmartHome(Collection<Actionable> rooms) {
         this.rooms = rooms;
     }
 
-    public SmartHome() {
-        this(new ArrayList<>());
+    @Override
+    public Iterator<Actionable> iterator() {
+        return rooms.iterator();
     }
 
-    public void addRoom(Room room) {
-        rooms.add(room);
-    }
-
-    public Collection<Room> getRooms() {
-        return rooms;
-    }
-
-    public Device getDevice(String id) {
-        for (Room room : rooms) {
-            Device device = room.getDevice(id);
-            if (device != null) {
-                return device;
-            }
+    @Override
+    public void execute(Action action) {
+        for (Actionable room : rooms) {
+            room.execute(action);
         }
-        return null;
     }
 
-    public Room getRoom(String name) {
-        for (Room room : rooms) {
-            if (room.getName().equals(name)) {
-                return room;
-            }
-        }
-        return null;
-    }
-
-    public Collection<Device> getDevicesOfClass(Class<?> clazz) {
-        ArrayList<Device> result = new ArrayList<>();
-        for (Room room : rooms) {
-            Map<String, Device> devices = room.getDevices();
-            for (Device device : devices.values()) {
-                if (clazz.isAssignableFrom(device.getClass())) {
-                    result.add(device);
-                }
-            }
-        }
-        return result;
+    @Override
+    public String getType() {
+        return type;
     }
 }
