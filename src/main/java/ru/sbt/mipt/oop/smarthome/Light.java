@@ -1,7 +1,4 @@
-package ru.sbt.mipt.oop;
-
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+package ru.sbt.mipt.oop.smarthome;
 
 public class Light implements Device {
     private final String id;
@@ -29,14 +26,5 @@ public class Light implements Device {
     @Override
     public String getId() {
         return id;
-    }
-
-    @Override
-    public void processEvent(SensorEvent event) {
-        if (event.getType() == LIGHT_ON) {
-            setOn(true);
-        } else if (event.getType() == LIGHT_OFF) {
-            setOn(false);
-        }
     }
 }

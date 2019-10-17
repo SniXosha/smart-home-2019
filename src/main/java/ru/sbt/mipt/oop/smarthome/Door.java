@@ -1,7 +1,4 @@
-package ru.sbt.mipt.oop;
-
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+package ru.sbt.mipt.oop.smarthome;
 
 public class Door implements Device {
     private final String id;
@@ -25,14 +22,5 @@ public class Door implements Device {
     @Override
     public String getId() {
         return id;
-    }
-
-    @Override
-    public void processEvent(SensorEvent event) {
-        if (event.getType() == DOOR_OPEN) {
-            setOpen(true);
-        } else if (event.getType() == DOOR_CLOSED) {
-            setOpen(false);
-        }
     }
 }

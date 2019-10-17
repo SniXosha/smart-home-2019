@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smarthome;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,5 +26,9 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    public Device getDevice(String id) {
+        return devices.get(id);
     }
 }

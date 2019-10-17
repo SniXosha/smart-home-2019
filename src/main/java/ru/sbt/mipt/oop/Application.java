@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.smarthome.*;
+
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
 
@@ -8,7 +12,12 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = HomeBuilder.loadSmartHome();
 
+        List<EventProcessor> processors = Arrays.asList(new DoorEventProcessor(),
+                new LightEventProcessor(), new HallDoorEventProcessor());
+        HomeProcessor homeProcessor = new HomeProcessor(smartHome, processors);
+        HomeRunner homeRunner = new HomeRunner(homeProcessor);
+
         // начинаем цикл обработки событий
-        HomeRunner.run(smartHome);
+        homeRunner.run();
     }
 }

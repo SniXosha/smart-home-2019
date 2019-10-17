@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import com.google.gson.*;
+import ru.sbt.mipt.oop.smarthome.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -32,40 +33,17 @@ class DeviceDeserializer<T extends Device> implements JsonDeserializer<T> {
 
 }
 
-class ComplexTriggerDeserializer<T extends ComplexTrigger> implements JsonDeserializer<T> {
-
-    @SuppressWarnings("unchecked")
-    public T deserialize(final JsonElement jsonElement, final Type type,
-                         final JsonDeserializationContext deserializationContext
-    ) throws JsonParseException {
-
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        JsonPrimitive prim = (JsonPrimitive) jsonObject.get("type");
-        String typeString = prim.getAsString();
-        Class<T> deviceClass = null;
-        if (typeString.equals("turnoffalllights")) {
-            deviceClass = (Class<T>) TurnOffAllLights.class;
-        }
-        return deserializationContext.deserialize(jsonObject, deviceClass);
-    }
-
-}
-
-
 public class HomeBuilder {
 
     private static String filepath = "smart-home-1.js";
 
     public static SmartHome loadSmartHome()  throws IOException {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Device.class, new DeviceDeserializer<>()).
-                registerTypeAdapter(ComplexTrigger.class, new ComplexTriggerDeserializer<>());
+        builder.registerTypeAdapter(Device.class, new DeviceDeserializer<>());
         Gson gson = builder.create();
 
         String json = new String(Files.readAllBytes(Paths.get(filepath)));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
-        smartHome.setupComplexTriggers();
-        return smartHome;
+        return gson.fromJson(json, SmartHome.class);
     }
 
     public static void main(String[] args) throws IOException {
@@ -93,9 +71,6 @@ public class HomeBuilder {
 
         List<Room> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
         SmartHome smartHome = new SmartHome(rooms);
-
-        TurnOffAllLights turnOffAllLights = new TurnOffAllLights();
-        smartHome.addComplexTrigger(turnOffAllLights);
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

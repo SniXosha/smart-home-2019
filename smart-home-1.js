@@ -80,10 +80,5 @@
       },
       "name": "hall"
     }
-  ],
-  "complexTriggers": [
-    {
-      "type": "turnoffalllights"
-    }
   ]
 }
