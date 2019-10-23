@@ -1,10 +1,8 @@
 package ru.sbt.mipt.oop.smarthome;
 
-import java.io.IOException;
-
 public interface HomeBuilder {
 
-    SmartHome loadSmartHome() throws IOException;
+    SmartHome loadSmartHome();
 
-    void dumpSmartHome() throws IOException;
+    void dumpSmartHome();
 }

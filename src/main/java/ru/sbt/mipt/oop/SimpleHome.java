@@ -37,16 +37,22 @@ public class SimpleHome implements HomeBuilder {
 
     private static String filepath = "smart-home-1.js";
 
-    public SmartHome loadSmartHome() throws IOException {
+    public SmartHome loadSmartHome() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Device.class, new DeviceDeserializer<>());
         Gson gson = builder.create();
 
-        String json = new String(Files.readAllBytes(Paths.get(filepath)));
+        String json = null;
+        try {
+            json = new String(Files.readAllBytes(Paths.get(filepath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         return gson.fromJson(json, SmartHome.class);
     }
 
-    public void dumpSmartHome() throws IOException {
+    public void dumpSmartHome() {
         Room kitchen = new Room("kitchen");
         Room bathroom = new Room("bathroom");
         Room bedroom = new Room("bedroom");
@@ -80,6 +86,8 @@ public class SimpleHome implements HomeBuilder {
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

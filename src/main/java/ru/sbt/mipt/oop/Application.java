@@ -12,6 +12,7 @@ public class Application {
         // считываем состояние дома из файла
         HomeBuilder homeBuilder = new SimpleHome();
         SmartHome smartHome = homeBuilder.loadSmartHome();
+        if (smartHome == null) return;
 
         List<EventProcessor> processors = Arrays.asList(new DoorEventProcessor(smartHome),
                 new LightEventProcessor(smartHome), new HallDoorEventProcessor(smartHome));
