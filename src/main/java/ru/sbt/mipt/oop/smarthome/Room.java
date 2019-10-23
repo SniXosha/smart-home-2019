@@ -2,8 +2,6 @@ package ru.sbt.mipt.oop.smarthome;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Room {
     private Collection<Device> devices;
