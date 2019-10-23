@@ -1,10 +1,12 @@
 package ru.sbt.mipt.oop.smarthome;
 
-import java.util.Collection;
-
 public class HallDoorEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
+
+    public HallDoorEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     @Override
     public void processEvent(SensorEvent event) {
@@ -12,27 +14,37 @@ public class HallDoorEventProcessor implements EventProcessor {
             return;
         }
 
-        Room room = smartHome.getRoom("hall");
-        if (room == null) {
-            return;
-        }
-        Device device = room.getDevice(event.getObjectId());
-        if (device == null) {
-            return;
-        }
-        if (!(device instanceof Door)) {
-            return;
-        }
-        ((Door) device).setOpen(false);
+        Room hall = getHallRoom();
+        if (hall == null) return;
+        Door roomDoor = getDoor(event, hall);
+        if (roomDoor == null) return;
 
-        Collection<Device> lightDevices = smartHome.getDevicesOfClass(Light.class);
-        for (Device lightDevice : lightDevices) {
-            ((Light) lightDevice).setOn(false);
+        roomDoor.setOpen(false);
+
+        for (Room room : smartHome.getRooms()) {
+            for (Device device : room.getDevices()) {
+                if (device instanceof Light) {
+                    ((Light) device).setOn(false);
+                }
+            }
         }
     }
 
-    @Override
-    public void setSmartHome(SmartHome smartHome) {
-        this.smartHome = smartHome;
+    private Door getDoor(SensorEvent event, Room room) {
+        for (Device device : room.getDevices()) {
+            if (device.getId().equals(event.getObjectId()) && device instanceof Door) {
+                return (Door) device;
+            }
+        }
+        return null;
+    }
+
+    private Room getHallRoom() {
+        for (Room room : smartHome.getRooms()) {
+            if (room.getName().equals("hall")) {
+                return room;
+            }
+        }
+        return null;
     }
 }

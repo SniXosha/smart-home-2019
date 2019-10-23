@@ -1,34 +1,32 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-    private Map<String, Device> devices;
+    private Collection<Device> devices;
     private String name;
 
-    public Room(String name, Map<String, Device> devices) {
+    public Room(String name, Collection<Device> devices) {
         this.devices = devices;
         this.name = name;
     }
 
     public Room(String name) {
-        this(name, new HashMap<String, Device>());
+        this(name, new ArrayList<>());
     }
 
-    public Map<String, Device> getDevices() {
+    public Collection<Device> getDevices() {
         return devices;
     }
 
     public void addDevice(Device device) {
-        devices.put(device.getId(), device);
+        devices.add(device);
     }
 
     public String getName() {
         return name;
-    }
-
-    public Device getDevice(String id) {
-        return devices.get(id);
     }
 }

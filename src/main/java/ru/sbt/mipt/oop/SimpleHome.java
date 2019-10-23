@@ -33,11 +33,11 @@ class DeviceDeserializer<T extends Device> implements JsonDeserializer<T> {
 
 }
 
-public class HomeBuilder {
+public class SimpleHome implements HomeBuilder {
 
     private static String filepath = "smart-home-1.js";
 
-    public static SmartHome loadSmartHome()  throws IOException {
+    public SmartHome loadSmartHome() throws IOException {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Device.class, new DeviceDeserializer<>());
         Gson gson = builder.create();
@@ -46,7 +46,7 @@ public class HomeBuilder {
         return gson.fromJson(json, SmartHome.class);
     }
 
-    public static void main(String[] args) throws IOException {
+    public void dumpSmartHome() throws IOException {
         Room kitchen = new Room("kitchen");
         Room bathroom = new Room("bathroom");
         Room bedroom = new Room("bedroom");
@@ -81,6 +81,11 @@ public class HomeBuilder {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        SimpleHome simpleHome = new SimpleHome();
+        simpleHome.dumpSmartHome();
     }
 
 }

@@ -10,11 +10,12 @@ public class Application {
 
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-        SmartHome smartHome = HomeBuilder.loadSmartHome();
+        HomeBuilder homeBuilder = new SimpleHome();
+        SmartHome smartHome = homeBuilder.loadSmartHome();
 
-        List<EventProcessor> processors = Arrays.asList(new DoorEventProcessor(),
-                new LightEventProcessor(), new HallDoorEventProcessor());
-        HomeProcessor homeProcessor = new HomeProcessor(smartHome, processors);
+        List<EventProcessor> processors = Arrays.asList(new DoorEventProcessor(smartHome),
+                new LightEventProcessor(smartHome), new HallDoorEventProcessor(smartHome));
+        HomeProcessor homeProcessor = new HomeProcessor(processors);
         HomeRunner homeRunner = new HomeRunner(homeProcessor);
 
         // начинаем цикл обработки событий

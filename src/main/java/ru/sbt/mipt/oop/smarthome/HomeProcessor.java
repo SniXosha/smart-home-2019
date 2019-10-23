@@ -4,20 +4,11 @@ import java.util.List;
 
 public class HomeProcessor {
 
-    private final SmartHome smartHome;
     private final List<EventProcessor> processors;
 
 
-    public HomeProcessor(SmartHome smartHome, List<EventProcessor> processors) {
-        this.smartHome = smartHome;
+    public HomeProcessor(List<EventProcessor> processors) {
         this.processors = processors;
-        setupProcessors();
-    }
-
-    private void setupProcessors() {
-        for (EventProcessor processor : processors) {
-            processor.setSmartHome(smartHome);
-        }
     }
 
     public void processEvent(SensorEvent event) {
