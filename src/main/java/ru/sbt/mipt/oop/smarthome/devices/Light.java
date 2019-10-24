@@ -1,4 +1,7 @@
-package ru.sbt.mipt.oop.smarthome;
+package ru.sbt.mipt.oop.smarthome.devices;
+
+import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 
 public class Light implements Actionable, Device {
     private final String id;

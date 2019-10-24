@@ -1,4 +1,8 @@
-package ru.sbt.mipt.oop.smarthome;
+package ru.sbt.mipt.oop.smarthome.devices;
+
+import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
 
 public class Door implements Device, Actionable {
     private final String id;

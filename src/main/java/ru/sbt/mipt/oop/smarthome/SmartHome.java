@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+
 import java.util.Collection;
 import java.util.Iterator;
 

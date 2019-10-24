@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smarthome;
+package ru.sbt.mipt.oop.smarthome.actions;
 
 public class StaticAction implements Action {
 

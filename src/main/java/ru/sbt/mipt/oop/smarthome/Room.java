@@ -1,5 +1,11 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+import ru.sbt.mipt.oop.smarthome.actions.StaticAction;
+import ru.sbt.mipt.oop.smarthome.devices.Door;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

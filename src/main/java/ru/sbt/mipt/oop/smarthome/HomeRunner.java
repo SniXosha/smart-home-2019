@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.sensorevents.EventDispatcher;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
+
 public class HomeRunner {
 
     private final HomeProcessor homeProcessor;

@@ -2,6 +2,9 @@ package ru.sbt.mipt.oop;
 
 import com.google.gson.*;
 import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+import ru.sbt.mipt.oop.smarthome.devices.Door;
+import ru.sbt.mipt.oop.smarthome.devices.Light;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
