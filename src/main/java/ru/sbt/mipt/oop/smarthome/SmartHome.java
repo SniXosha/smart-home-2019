@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 public class SmartHome implements Actionable, Iterable<Actionable> {
     private final Collection<Actionable> rooms;
+    @SuppressWarnings("FieldCanBeLocal")
     private final String type = "smarthome";
 
     public SmartHome(Collection<Actionable> rooms) {
@@ -21,6 +22,7 @@ public class SmartHome implements Actionable, Iterable<Actionable> {
 
     @Override
     public void execute(Action action) {
+        action.execute(this);
         for (Actionable room : rooms) {
             room.execute(action);
         }

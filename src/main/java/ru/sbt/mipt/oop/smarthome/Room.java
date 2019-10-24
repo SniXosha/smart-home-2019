@@ -2,9 +2,6 @@ package ru.sbt.mipt.oop.smarthome;
 
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
-import ru.sbt.mipt.oop.smarthome.actions.StaticAction;
-import ru.sbt.mipt.oop.smarthome.devices.Door;
-import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,8 +10,8 @@ import java.util.Iterator;
 public class Room implements Actionable, Iterable<Actionable> {
     private final Collection<Actionable> devices;
     private final String name;
+    @SuppressWarnings("FieldCanBeLocal")
     private final String type = "room";
-
 
     public Room(String name) {
         this.devices = new ArrayList<>();
@@ -29,11 +26,12 @@ public class Room implements Actionable, Iterable<Actionable> {
         devices.add(actionable);
     }
 
-
     @Override
     public void execute(Action action) {
-        executeHallDoor(action);
-        executeForAllChildren(action);
+        action.execute(this);
+        for (Actionable device : devices) {
+            device.execute(action);
+        }
     }
 
     @Override
@@ -44,33 +42,5 @@ public class Room implements Actionable, Iterable<Actionable> {
     @Override
     public Iterator<Actionable> iterator() {
         return devices.iterator();
-    }
-
-    private void executeForAllChildren(Action action) {
-        for (Actionable device : devices) {
-            device.execute(action);
-        }
-    }
-
-    private boolean isHallDoorAction(Action action) {
-        if (!name.equals("hall")) {
-            return false;
-        }
-        return action.getTargetClass().equals(Room.class) &&
-                action.getCommand().equals("halldoor") &&
-                action.getAnswer().equals(HallDoorEventProcessor.roomInitAnswer);
-    }
-
-    private void executeHallDoor(Action action) {
-        if (isHallDoorAction(action)) {
-            Action idAction = new StaticAction(Door.class, action.getId(), "id");
-            idAction.setAnswer(HallDoorEventProcessor.deviceInitAnswer);
-            executeForAllChildren(idAction);
-            if (idAction.getAnswer().equals(HallDoorEventProcessor.deviceInitAnswer)) {
-                action.setAnswer("false");
-            } else {
-                action.setAnswer("true");
-            }
-        }
     }
 }

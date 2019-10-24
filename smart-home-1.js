@@ -26,7 +26,8 @@
         {
           "id": "2",
           "isOpen": false,
-          "type": "door"
+          "type": "door",
+          "roomName": "bathroom"
         }
       ],
       "name": "bathroom",
@@ -52,7 +53,8 @@
         {
           "id": "3",
           "isOpen": true,
-          "type": "door"
+          "type": "door",
+          "roomName": "bedroom"
         }
       ],
       "name": "bedroom",
@@ -78,7 +80,8 @@
         {
           "id": "4",
           "isOpen": false,
-          "type": "door"
+          "type": "door",
+          "roomName": "hall"
         }
       ],
       "name": "hall",

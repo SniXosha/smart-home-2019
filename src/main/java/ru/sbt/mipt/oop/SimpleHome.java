@@ -26,12 +26,16 @@ class ActionableDeserializer<T extends Actionable> implements JsonDeserializer<T
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get("type");
         String typeString = prim.getAsString();
         Class<T> deviceClass = null;
-        if (typeString.equals("light")) {
-            deviceClass = (Class<T>) Light.class;
-        } else if (typeString.equals("door")) {
-            deviceClass = (Class<T>) Door.class;
-        } else if (typeString.equals("room")) {
-            deviceClass = (Class<T>) Room.class;
+        switch (typeString) {
+            case "light":
+                deviceClass = (Class<T>) Light.class;
+                break;
+            case "door":
+                deviceClass = (Class<T>) Door.class;
+                break;
+            case "room":
+                deviceClass = (Class<T>) Room.class;
+                break;
         }
         return deserializationContext.deserialize(jsonObject, deviceClass);
     }
@@ -40,14 +44,14 @@ class ActionableDeserializer<T extends Actionable> implements JsonDeserializer<T
 
 public class SimpleHome implements HomeBuilder {
 
-    private static String filepath = "smart-home-1.js";
+    private static final String filepath = "smart-home-1.js";
 
     public SmartHome loadSmartHome() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Actionable.class, new ActionableDeserializer<>());
         Gson gson = builder.create();
 
-        String json = null;
+        String json;
         try {
             json = new String(Files.readAllBytes(Paths.get(filepath)));
         } catch (IOException e) {
@@ -57,7 +61,7 @@ public class SimpleHome implements HomeBuilder {
         return gson.fromJson(json, SmartHome.class);
     }
 
-    public void dumpSmartHome() {
+    private void dumpSmartHome() {
         Room kitchen = new Room("kitchen");
         Room bathroom = new Room("bathroom");
         Room bedroom = new Room("bedroom");
@@ -67,17 +71,17 @@ public class SimpleHome implements HomeBuilder {
         kitchen.addActionable(new Light("2", true));
 
         bathroom.addActionable(new Light("3", true));
-        bathroom.addActionable(new Door("2", false));
+        bathroom.addActionable(new Door("2", false, bathroom.getName()));
 
         bedroom.addActionable(new Light("4", false));
         bedroom.addActionable(new Light("5", false));
         bedroom.addActionable(new Light("6", false));
-        bedroom.addActionable(new Door("3", true));
+        bedroom.addActionable(new Door("3", true, bedroom.getName()));
 
         hall.addActionable(new Light("7", false));
         hall.addActionable(new Light("8", false));
         hall.addActionable(new Light("9", false));
-        hall.addActionable(new Door("4", false));
+        hall.addActionable(new Door("4", false, hall.getName()));
 
 
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
@@ -96,7 +100,7 @@ public class SimpleHome implements HomeBuilder {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         SimpleHome simpleHome = new SimpleHome();
         simpleHome.dumpSmartHome();
     }

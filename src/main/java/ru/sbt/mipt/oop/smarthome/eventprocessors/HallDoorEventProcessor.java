@@ -1,18 +1,39 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
-import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
-import ru.sbt.mipt.oop.smarthome.actions.StaticAction;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType;
 
+class IsHallDoor implements Action {
+
+    private final String doorId;
+    private boolean result = false;
+
+    IsHallDoor(String doorId) {
+        this.doorId = doorId;
+    }
+
+    @Override
+    public void execute(Object obj) {
+        if (obj instanceof Door) {
+            Door door = (Door) obj;
+            if (door.getId().equals(doorId) && door.getRoomName().equals("hall")) {
+                result = true;
+            }
+        }
+    }
+
+    public boolean check() {
+        return result;
+    }
+}
+
 public class HallDoorEventProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
-    public static String roomInitAnswer = "/room";
-    public static String deviceInitAnswer = "/device";
+    private final SmartHome smartHome;
 
     public HallDoorEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
@@ -23,14 +44,20 @@ public class HallDoorEventProcessor implements EventProcessor {
         if (event.getType() != SensorEventType.DOOR_CLOSED) {
             return;
         }
-
-        Action hallDoorAction = new StaticAction(Room.class, event.getObjectId(), "halldoor");
-        hallDoorAction.setAnswer(HallDoorEventProcessor.roomInitAnswer);
-        smartHome.execute(hallDoorAction);
-        if (!hallDoorAction.getAnswer().equals("true")) {
+        IsHallDoor isHallDoor = new IsHallDoor(event.getObjectId());
+        smartHome.execute(isHallDoor);
+        if (!isHallDoor.check()) {
             return;
         }
-        smartHome.execute(new StaticAction(Door.class, event.getObjectId(), "close"));
-        smartHome.execute(new StaticAction(Light.class, null, "off"));
+        smartHome.execute(obj -> {
+            if (obj instanceof Door) {
+                Door door = (Door) obj;
+                if (door.getId().equals(event.getObjectId())) {
+                    door.setOpen(false);
+                }
+            } else if (obj instanceof Light) {
+                ((Light) obj).setOn(false);
+            }
+        });
     }
 }

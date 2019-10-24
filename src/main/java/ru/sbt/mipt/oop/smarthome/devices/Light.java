@@ -6,6 +6,7 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 public class Light implements Actionable, Device {
     private final String id;
     private boolean isOn;
+    @SuppressWarnings("FieldCanBeLocal")
     private final String type = "light";
 
     public Light(String id, boolean isOn) {
@@ -23,17 +24,7 @@ public class Light implements Actionable, Device {
 
     @Override
     public void execute(Action action) {
-        if (action.getId() != null && !action.getId().equals(id)) {
-            return;
-        }
-        if (!action.getTargetClass().equals(this.getClass())) {
-            return;
-        }
-        if (action.getCommand().equals("on")) {
-            setOn(true);
-        } else if (action.getCommand().equals("off")) {
-            setOn(false);
-        }
+        action.execute(this);
     }
 
     @Override

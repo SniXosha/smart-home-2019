@@ -2,26 +2,31 @@ package ru.sbt.mipt.oop.smarthome.devices;
 
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
-import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
 
 public class Door implements Device, Actionable {
     private final String id;
     private boolean isOpen;
+    @SuppressWarnings("FieldCanBeLocal")
     private final String type = "door";
+    private final String roomName;
 
-    public Door(String id, boolean isOpen) {
+    public Door(String id, boolean isOpen, String roomName) {
         this.isOpen = isOpen;
         this.id = id;
+        this.roomName = roomName;
     }
 
     public void setOpen(boolean open) {
         isOpen = open;
     }
 
+    public String getRoomName() {
+        return roomName;
+    }
+
     @Override
     public void execute(Action action) {
-        executeIdAction(action);
-        executeCloseOpen(action);
+        action.execute(this);
     }
 
     @Override
@@ -36,31 +41,5 @@ public class Door implements Device, Actionable {
 
     public boolean isOpen() {
         return isOpen;
-    }
-
-    private boolean isIdAction(Action action) {
-        return action.getTargetClass().equals(Door.class) &&
-                action.getCommand().equals("id") &&
-                action.getAnswer().equals(HallDoorEventProcessor.deviceInitAnswer);
-    }
-
-    private void executeIdAction(Action action) {
-        if (isIdAction(action) && action.getId().equals(id)) {
-            action.setAnswer("true");
-        }
-    }
-
-    private void executeCloseOpen(Action action) {
-        if (action.getId() != null && !action.getId().equals(id)) {
-            return;
-        }
-        if (!action.getTargetClass().equals(this.getClass())) {
-            return;
-        }
-        if (action.getCommand().equals("open")) {
-            setOpen(true);
-        } else if (action.getCommand().equals("close")) {
-            setOpen(false);
-        }
     }
 }

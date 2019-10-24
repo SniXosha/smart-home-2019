@@ -1,31 +1,38 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
-import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
-import ru.sbt.mipt.oop.smarthome.actions.StaticAction;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType;
 
+import static ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType.LIGHT_OFF;
+import static ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType.LIGHT_ON;
+
 public class LightEventProcessor implements EventProcessor {
 
-    private SmartHome smartHome;
+    private final SmartHome smartHome;
 
     public LightEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
     private Action parseEvent(SensorEvent event) {
-        String command = "none";
-        if (event.getType() == SensorEventType.LIGHT_ON) {
-            command = "on";
-        } else if (event.getType() == SensorEventType.LIGHT_OFF) {
-            command = "off";
-        }
-        if (command.equals("none")) {
+        SensorEventType type = event.getType();
+        if (type != LIGHT_ON && type != LIGHT_OFF) {
             return null;
         }
-        return new StaticAction(Light.class, event.getObjectId(), command);
+        boolean newLightState = (type == LIGHT_ON);
+
+        return obj -> {
+            if (!(obj instanceof Light)) {
+                return;
+            }
+            Light light = (Light) obj;
+            if (light.getId().equals(event.getObjectId())) {
+                light.setOn(newLightState);
+            }
+        };
     }
 
     @Override
