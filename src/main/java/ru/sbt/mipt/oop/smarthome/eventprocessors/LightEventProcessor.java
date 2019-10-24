@@ -11,6 +11,10 @@ public class LightEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
 
+    public LightEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     private Action parseEvent(SensorEvent event) {
         String command = "none";
         if (event.getType() == SensorEventType.LIGHT_ON) {
@@ -30,10 +34,5 @@ public class LightEventProcessor implements EventProcessor {
         if (action != null) {
             smartHome.execute(action);
         }
-    }
-
-    @Override
-    public void setSmartHome(SmartHome smartHome) {
-        this.smartHome = smartHome;
     }
 }

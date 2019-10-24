@@ -14,6 +14,10 @@ public class HallDoorEventProcessor implements EventProcessor {
     public static String roomInitAnswer = "/room";
     public static String deviceInitAnswer = "/device";
 
+    public HallDoorEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     @Override
     public void processEvent(SensorEvent event) {
         if (event.getType() != SensorEventType.DOOR_CLOSED) {
@@ -28,10 +32,5 @@ public class HallDoorEventProcessor implements EventProcessor {
         }
         smartHome.execute(new StaticAction(Door.class, event.getObjectId(), "close"));
         smartHome.execute(new StaticAction(Light.class, null, "off"));
-    }
-
-    @Override
-    public void setSmartHome(SmartHome smartHome) {
-        this.smartHome = smartHome;
     }
 }

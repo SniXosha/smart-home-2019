@@ -11,6 +11,10 @@ public class DoorEventProcessor implements EventProcessor {
 
     private SmartHome smartHome;
 
+    public DoorEventProcessor(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
     private Action parseEvent(SensorEvent event) {
         String command = "none";
         if (event.getType() == SensorEventType.DOOR_CLOSED) {
@@ -30,10 +34,5 @@ public class DoorEventProcessor implements EventProcessor {
         if (action != null) {
             smartHome.execute(action);
         }
-    }
-
-    @Override
-    public void setSmartHome(SmartHome smartHome) {
-        this.smartHome = smartHome;
     }
 }

@@ -41,8 +41,7 @@ class DoorEventProcessorTest {
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom);
         smartHome = new SmartHome(rooms);
 
-        eventProcessor = new DoorEventProcessor();
-        eventProcessor.setSmartHome(smartHome);
+        eventProcessor = new DoorEventProcessor(smartHome);
     }
 
     @Test

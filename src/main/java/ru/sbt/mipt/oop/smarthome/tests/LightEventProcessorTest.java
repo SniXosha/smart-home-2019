@@ -41,8 +41,7 @@ class LightEventProcessorTest {
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom);
         smartHome = new SmartHome(rooms);
 
-        eventProcessor = new LightEventProcessor();
-        eventProcessor.setSmartHome(smartHome);
+        eventProcessor = new LightEventProcessor(smartHome);
     }
 
     @Test

@@ -38,20 +38,26 @@ class ActionableDeserializer<T extends Actionable> implements JsonDeserializer<T
 
 }
 
-public class HomeBuilder {
+public class SimpleHome implements HomeBuilder {
 
     private static String filepath = "smart-home-1.js";
 
-    public static SmartHome loadSmartHome()  throws IOException {
+    public SmartHome loadSmartHome() {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Actionable.class, new ActionableDeserializer<>());
         Gson gson = builder.create();
 
-        String json = new String(Files.readAllBytes(Paths.get(filepath)));
+        String json = null;
+        try {
+            json = new String(Files.readAllBytes(Paths.get(filepath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         return gson.fromJson(json, SmartHome.class);
     }
 
-    public static void main(String[] args) throws IOException {
+    public void dumpSmartHome() {
         Room kitchen = new Room("kitchen");
         Room bathroom = new Room("bathroom");
         Room bedroom = new Room("bedroom");
@@ -85,7 +91,14 @@ public class HomeBuilder {
         Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        SimpleHome simpleHome = new SimpleHome();
+        simpleHome.dumpSmartHome();
     }
 
 }
