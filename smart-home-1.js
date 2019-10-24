@@ -82,6 +82,13 @@
           "isOpen": false,
           "type": "door",
           "roomName": "hall"
+        },
+        {
+          "id": "11",
+          "state": {
+            "type": "deactivated"
+          },
+          "type": "homealarm"
         }
       ],
       "name": "hall",

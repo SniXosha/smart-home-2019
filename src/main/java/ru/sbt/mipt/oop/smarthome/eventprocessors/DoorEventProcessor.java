@@ -3,11 +3,8 @@ package ru.sbt.mipt.oop.smarthome.eventprocessors;
 import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType;
-
-import static ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType.DOOR_OPEN;
+import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
+import static ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType.OPEN;
 
 public class DoorEventProcessor implements EventProcessor {
 
@@ -17,29 +14,32 @@ public class DoorEventProcessor implements EventProcessor {
         this.smartHome = smartHome;
     }
 
-    private Action parseEvent(SensorEvent event) {
-        SensorEventType type = event.getType();
-        if (type != DOOR_CLOSED && type != DOOR_OPEN) {
-            return null;
-        }
-        boolean newDoorState = (type == DOOR_OPEN);
+    private Action parseEvent(Object event) {
+        if (!isCorrectEvent(event)) return null;
+        DoorSensorEvent doorSensorEvent = (DoorSensorEvent) event;
+        boolean newDoorState = (doorSensorEvent.getType() == OPEN);
 
         return obj -> {
             if (!(obj instanceof Door)) {
                 return;
             }
             Door door = (Door) obj;
-            if (door.getId().equals(event.getObjectId())) {
+            if (door.getId().equals(doorSensorEvent.getObjectId())) {
                 door.setOpen(newDoorState);
             }
         };
     }
 
     @Override
-    public void processEvent(SensorEvent event) {
+    public void processEvent(Object event) {
         Action action = parseEvent(event);
         if (action != null) {
             smartHome.execute(action);
         }
+    }
+
+    @Override
+    public boolean isCorrectEvent(Object event) {
+        return event instanceof DoorSensorEvent;
     }
 }
