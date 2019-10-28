@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smarthome.serialization;
 
 import com.google.gson.*;
 import ru.sbt.mipt.oop.smarthome.*;
@@ -15,40 +15,13 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
-class ActionableDeserializer<T extends Actionable> implements JsonDeserializer<T> {
-
-    @SuppressWarnings("unchecked")
-    public T deserialize(final JsonElement jsonElement, final Type type,
-                         final JsonDeserializationContext deserializationContext
-    ) throws JsonParseException {
-
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        JsonPrimitive prim = (JsonPrimitive) jsonObject.get("type");
-        String typeString = prim.getAsString();
-        Class<T> deviceClass = null;
-        switch (typeString) {
-            case "light":
-                deviceClass = (Class<T>) Light.class;
-                break;
-            case "door":
-                deviceClass = (Class<T>) Door.class;
-                break;
-            case "room":
-                deviceClass = (Class<T>) Room.class;
-                break;
-        }
-        return deserializationContext.deserialize(jsonObject, deviceClass);
-    }
-
-}
-
 public class SimpleHome implements HomeBuilder {
 
     private static final String filepath = "smart-home-1.js";
 
     public SmartHome loadSmartHome() {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Actionable.class, new ActionableDeserializer<>());
+        builder.registerTypeAdapter(Actionable.class, new DeserializerWithClassName<Actionable>());
         Gson gson = builder.create();
 
         String json;
@@ -87,8 +60,8 @@ public class SimpleHome implements HomeBuilder {
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
         SmartHome smartHome = new SmartHome(rooms);
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+        Gson gson = new GsonBuilder().setPrettyPrinting().
+                registerTypeAdapter(Actionable.class, new SerializerWithClassName<Actionable>()).create();
 
         String jsonString = gson.toJson(smartHome);
         System.out.println(jsonString);
