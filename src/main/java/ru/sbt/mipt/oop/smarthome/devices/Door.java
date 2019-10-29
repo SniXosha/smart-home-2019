@@ -6,8 +6,6 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 public class Door implements Device, Actionable {
     private final String id;
     private boolean isOpen;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String type = "door";
     private final String roomName;
 
     public Door(String id, boolean isOpen, String roomName) {
@@ -27,11 +25,6 @@ public class Door implements Device, Actionable {
     @Override
     public void execute(Action action) {
         action.execute(this);
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

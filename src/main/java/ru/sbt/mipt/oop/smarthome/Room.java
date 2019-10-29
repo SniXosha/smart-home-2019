@@ -10,8 +10,6 @@ import java.util.Iterator;
 public class Room implements Actionable, Iterable<Actionable> {
     private final Collection<Actionable> devices;
     private final String name;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String type = "room";
 
     public Room(String name) {
         this.devices = new ArrayList<>();
@@ -32,11 +30,6 @@ public class Room implements Actionable, Iterable<Actionable> {
         for (Actionable device : devices) {
             device.execute(action);
         }
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

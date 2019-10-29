@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.eventprocessors.*;
+import ru.sbt.mipt.oop.smarthome.serialization.HomeBuilder;
+import ru.sbt.mipt.oop.smarthome.serialization.SimpleHome;
 import ru.sbt.mipt.oop.smarthome.signals.ConsoleSignalSender;
 import ru.sbt.mipt.oop.smarthome.signals.SignalSender;
 
@@ -18,10 +20,10 @@ class Application {
         SignalSender signalSender = new ConsoleSignalSender();
 
         List<EventProcessor> processors = Arrays.asList(
-                new TriggerAlarm(smartHome, new AlarmEventProccesor(smartHome),signalSender),
-                new TriggerAlarm(smartHome, new DoorEventProcessor(smartHome), signalSender),
-                new TriggerAlarm(smartHome, new LightEventProcessor(smartHome), signalSender),
-                new TriggerAlarm(smartHome, new HallDoorEventProcessor(smartHome), signalSender));
+                new TriggerAlarm(smartHome.getHomeAlarm(), new AlarmEventProccesor(smartHome), signalSender),
+                new TriggerAlarm(smartHome.getHomeAlarm(), new DoorEventProcessor(smartHome), signalSender),
+                new TriggerAlarm(smartHome.getHomeAlarm(), new LightEventProcessor(smartHome), signalSender),
+                new TriggerAlarm(smartHome.getHomeAlarm(), new HallDoorEventProcessor(smartHome), signalSender));
         HomeProcessor homeProcessor = new HomeProcessor(processors);
         HomeRunner homeRunner = new HomeRunner(homeProcessor);
 

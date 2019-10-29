@@ -1,18 +1,13 @@
-package ru.sbt.mipt.oop.smarthome.devices.alarm;
+package ru.sbt.mipt.oop.smarthome.alarm;
 
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
-import ru.sbt.mipt.oop.smarthome.devices.Device;
 
-public class HomeAlarm implements Alarm, Device, Actionable {
+public class HomeAlarm implements Alarm, Actionable {
 
-    private final String id;
     private HomeAlarmState state;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String type = "homealarm";
 
-    public HomeAlarm(String id) {
-        this.id = id;
+    public HomeAlarm() {
         this.state = new DeactivatedAlarm(this);
     }
 
@@ -22,11 +17,6 @@ public class HomeAlarm implements Alarm, Device, Actionable {
 
     void setState(HomeAlarmState newState) {
         this.state = newState;
-    }
-
-    @Override
-    public String getId() {
-        return id;
     }
 
     @Override
@@ -47,10 +37,5 @@ public class HomeAlarm implements Alarm, Device, Actionable {
     @Override
     public void execute(Action action) {
         action.execute(this);
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 }

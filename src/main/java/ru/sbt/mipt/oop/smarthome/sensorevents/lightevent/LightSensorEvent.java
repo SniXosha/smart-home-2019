@@ -1,4 +1,5 @@
 package ru.sbt.mipt.oop.smarthome.sensorevents.lightevent;
+
 import ru.sbt.mipt.oop.smarthome.sensorevents.IdSensorEvent;
 
 public class LightSensorEvent extends IdSensorEvent {
@@ -8,7 +9,13 @@ public class LightSensorEvent extends IdSensorEvent {
         super(objectId);
         this.type = type;
     }
+
     public LightEventType getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return "LightSensorEvent " + type.toString() + ", id " + getObjectId();
     }
 }

@@ -1,8 +1,10 @@
-package ru.sbt.mipt.oop.smarthome.devices.alarm;
+package ru.sbt.mipt.oop.smarthome.alarm;
 
-public interface Alarm {
+interface Alarm {
 
     void activate(String code);
+
     void deactivate(String code);
+
     void activateDangerAlarm();
 }

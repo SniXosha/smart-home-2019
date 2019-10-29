@@ -8,7 +8,6 @@ public class HomeProcessor {
 
     private final List<EventProcessor> processors;
 
-
     public HomeProcessor(List<EventProcessor> processors) {
         this.processors = processors;
     }

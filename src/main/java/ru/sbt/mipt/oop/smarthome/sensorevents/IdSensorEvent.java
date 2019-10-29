@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.smarthome.sensorevents;
 public class IdSensorEvent {
     private final String objectId;
 
-    public IdSensorEvent(String objectId) {
+    protected IdSensorEvent(String objectId) {
         this.objectId = objectId;
     }
 

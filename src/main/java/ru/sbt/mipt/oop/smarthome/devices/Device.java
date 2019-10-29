@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop.smarthome.devices;
 
-public interface Device {
+interface Device {
     String getId();
 }

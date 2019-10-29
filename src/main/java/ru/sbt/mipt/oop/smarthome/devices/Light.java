@@ -6,8 +6,6 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 public class Light implements Actionable, Device {
     private final String id;
     private boolean isOn;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String type = "light";
 
     public Light(String id, boolean isOn) {
         this.id = id;
@@ -25,11 +23,6 @@ public class Light implements Actionable, Device {
     @Override
     public void execute(Action action) {
         action.execute(this);
-    }
-
-    @Override
-    public String getType() {
-        return type;
     }
 
     @Override

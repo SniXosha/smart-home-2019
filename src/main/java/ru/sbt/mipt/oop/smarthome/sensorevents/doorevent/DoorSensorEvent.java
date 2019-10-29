@@ -13,4 +13,9 @@ public class DoorSensorEvent extends IdSensorEvent {
     public DoorEventType getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "DoorSensorEvent " + type.toString() + ", id " + getObjectId();
+    }
 }

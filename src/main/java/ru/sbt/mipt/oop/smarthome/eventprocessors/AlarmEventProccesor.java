@@ -1,8 +1,7 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import ru.sbt.mipt.oop.smarthome.SmartHome;
-import ru.sbt.mipt.oop.smarthome.actions.Action;
-import ru.sbt.mipt.oop.smarthome.devices.alarm.HomeAlarm;
+import ru.sbt.mipt.oop.smarthome.alarm.HomeAlarm;
 import ru.sbt.mipt.oop.smarthome.sensorevents.alarmevent.AlarmEventType;
 import ru.sbt.mipt.oop.smarthome.sensorevents.alarmevent.AlarmSensorEvent;
 

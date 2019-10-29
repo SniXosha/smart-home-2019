@@ -1,9 +1,6 @@
-package ru.sbt.mipt.oop.smarthome.devices.alarm;
+package ru.sbt.mipt.oop.smarthome.alarm;
 
 public class DeactivatedAlarm extends HomeAlarmState {
-
-    @SuppressWarnings("FieldCanBeLocal")
-    private final String type = "deactivated";
 
     DeactivatedAlarm(HomeAlarm homeAlarm) {
         this.homeAlarm = homeAlarm;
@@ -21,10 +18,4 @@ public class DeactivatedAlarm extends HomeAlarmState {
     @Override
     public void activateDangerAlarm() {
     }
-
-    @Override
-    public String getStateType() {
-        return type;
-    }
-
 }

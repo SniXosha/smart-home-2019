@@ -5,95 +5,92 @@
         {
           "id": "1",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "2",
           "isOn": true,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         }
       ],
       "name": "kitchen",
-      "type": "room"
+      "className": "ru.sbt.mipt.oop.smarthome.Room"
     },
     {
       "devices": [
         {
           "id": "3",
           "isOn": true,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "2",
           "isOpen": false,
-          "type": "door",
-          "roomName": "bathroom"
+          "roomName": "bathroom",
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Door"
         }
       ],
       "name": "bathroom",
-      "type": "room"
+      "className": "ru.sbt.mipt.oop.smarthome.Room"
     },
     {
       "devices": [
         {
           "id": "4",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "5",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "6",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "3",
           "isOpen": true,
-          "type": "door",
-          "roomName": "bedroom"
+          "roomName": "bedroom",
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Door"
         }
       ],
       "name": "bedroom",
-      "type": "room"
+      "className": "ru.sbt.mipt.oop.smarthome.Room"
     },
     {
       "devices": [
         {
           "id": "7",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "8",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "9",
           "isOn": false,
-          "type": "light"
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Light"
         },
         {
           "id": "4",
           "isOpen": false,
-          "type": "door",
-          "roomName": "hall"
-        },
-        {
-          "id": "11",
-          "state": {
-            "type": "deactivated"
-          },
-          "type": "homealarm"
+          "roomName": "hall",
+          "className": "ru.sbt.mipt.oop.smarthome.devices.Door"
         }
       ],
       "name": "hall",
-      "type": "room"
+      "className": "ru.sbt.mipt.oop.smarthome.Room"
     }
   ],
-  "type": "smarthome"
+  "homeAlarm": {
+    "state": {
+      "className": "ru.sbt.mipt.oop.smarthome.alarm.DeactivatedAlarm"
+    }
+  }
 }

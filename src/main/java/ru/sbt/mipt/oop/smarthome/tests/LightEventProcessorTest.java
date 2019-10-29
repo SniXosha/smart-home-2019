@@ -2,9 +2,12 @@ package ru.sbt.mipt.oop.smarthome.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+import ru.sbt.mipt.oop.smarthome.alarm.HomeAlarm;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
 import ru.sbt.mipt.oop.smarthome.eventprocessors.LightEventProcessor;
@@ -39,7 +42,7 @@ class LightEventProcessorTest {
 
 
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom);
-        SmartHome smartHome = new SmartHome(rooms);
+        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm());
 
         eventProcessor = new LightEventProcessor(smartHome);
     }
