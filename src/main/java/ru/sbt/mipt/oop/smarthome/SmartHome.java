@@ -5,9 +5,8 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 import ru.sbt.mipt.oop.smarthome.alarm.HomeAlarm;
 
 import java.util.Collection;
-import java.util.Iterator;
 
-public class SmartHome implements Actionable, Iterable<Actionable> {
+public class SmartHome implements Actionable {
     private final Collection<Actionable> rooms;
     private final HomeAlarm homeAlarm;
 
@@ -18,11 +17,6 @@ public class SmartHome implements Actionable, Iterable<Actionable> {
 
     public HomeAlarm getHomeAlarm() {
         return homeAlarm;
-    }
-
-    @Override
-    public Iterator<Actionable> iterator() {
-        return rooms.iterator();
     }
 
     @Override
