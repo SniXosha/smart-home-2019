@@ -45,7 +45,7 @@ class HallDoorEventProcessorTest {
         lights = Arrays.asList(hallLight, bathroomLight);
 
         List<Actionable> rooms = Arrays.asList(hall, bathroom);
-        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm());
+        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm("code"));
 
         eventProcessor = new HallDoorEventProcessor(smartHome);
     }

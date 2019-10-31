@@ -19,7 +19,7 @@ public class EventDispatcher {
             String objectId = "" + ((int) (10 * Math.random()));
             return new LightSensorEvent(objectId, (Math.random() < 0.5) ? LightEventType.OFF : LightEventType.ON);
         } else { //alarm
-            String code = "" + ((int) (10 * Math.random()));
+            String code = (Math.random() < 0.9) ? "code" : "badcode";
             return new AlarmSensorEvent((Math.random() < 0.5) ? AlarmEventType.ACTIVATE : AlarmEventType.DEACTIVATE, code);
         }
     }

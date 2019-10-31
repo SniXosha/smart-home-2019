@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
 
 import java.util.List;
 
-public class HomeProcessor {
+public class HomeProcessor implements EventProcessor{
 
     private final List<EventProcessor> processors;
 
@@ -12,6 +12,7 @@ public class HomeProcessor {
         this.processors = processors;
     }
 
+    @Override
     public void processEvent(Object event) {
         for (EventProcessor processor : processors) {
             processor.processEvent(event);

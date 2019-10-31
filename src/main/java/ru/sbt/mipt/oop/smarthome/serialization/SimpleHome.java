@@ -59,7 +59,7 @@ public class SimpleHome implements HomeBuilder {
 
 
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
-        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm());
+        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm("code"));
 
         Gson gson = new GsonBuilder().setPrettyPrinting()
                 .registerTypeAdapter(Actionable.class, new SerializerWithClassName<Actionable>())

@@ -20,11 +20,12 @@ class Application {
         SignalSender signalSender = new ConsoleSignalSender();
 
         List<EventProcessor> processors = Arrays.asList(
-                new TriggerAlarm(smartHome.getHomeAlarm(), new AlarmEventProccesor(smartHome), signalSender),
-                new TriggerAlarm(smartHome.getHomeAlarm(), new DoorEventProcessor(smartHome), signalSender),
-                new TriggerAlarm(smartHome.getHomeAlarm(), new LightEventProcessor(smartHome), signalSender),
-                new TriggerAlarm(smartHome.getHomeAlarm(), new HallDoorEventProcessor(smartHome), signalSender));
-        HomeProcessor homeProcessor = new HomeProcessor(processors);
+                new AlarmEventProccesor(smartHome),
+                new DoorEventProcessor(smartHome),
+                new LightEventProcessor(smartHome),
+                new HallDoorEventProcessor(smartHome));
+        EventProcessor homeProcessor = new TriggerAlarm(smartHome.getHomeAlarm(),
+                new HomeProcessor(processors), signalSender);
         HomeRunner homeRunner = new HomeRunner(homeProcessor);
 
         // начинаем цикл обработки событий

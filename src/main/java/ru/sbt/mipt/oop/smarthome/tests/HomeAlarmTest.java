@@ -12,10 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class HomeAlarmTest {
 
     private HomeAlarm homeAlarm;
+    private String code = "123";
 
     @BeforeEach
     void setUp() {
-        homeAlarm = new HomeAlarm();
+        homeAlarm = new HomeAlarm(code);
     }
 
     @Test
@@ -25,44 +26,48 @@ class HomeAlarmTest {
 
     @Test
     void testActivation() {
-        homeAlarm.activate("123");
+        homeAlarm.activate(code);
         assertTrue(homeAlarm.getState() instanceof ActivatedAlarm);
     }
 
     @Test
     void testSuccessfulDeactivation() {
-        homeAlarm.activate("123");
-        homeAlarm.deactivate("123");
+        homeAlarm.activate(code);
+        homeAlarm.deactivate(code);
         assertTrue(homeAlarm.getState() instanceof DeactivatedAlarm);
     }
 
     @Test
     void testBadDeactivation() {
-        homeAlarm.activate("123");
-        homeAlarm.deactivate("321");
+        homeAlarm.activate(code);
+        homeAlarm.deactivate("---");
         assertTrue(homeAlarm.getState() instanceof ActivatedDangerAlarm);
     }
 
     @Test
-    void testDangerAlarmActivation() {
-        homeAlarm.activate("123");
+    void testDangerAlarmActivationFromActivated() {
+        homeAlarm.activate(code);
+        homeAlarm.activateDangerAlarm();
+        assertTrue(homeAlarm.getState() instanceof ActivatedDangerAlarm);
+    }
+
+    @Test
+    void testDangerAlarmActivationFromDeactivated() {
         homeAlarm.activateDangerAlarm();
         assertTrue(homeAlarm.getState() instanceof ActivatedDangerAlarm);
     }
 
     @Test
     void TestDangerAlarmSuccessfulDeactivation() {
-        homeAlarm.activate("123");
         homeAlarm.activateDangerAlarm();
-        homeAlarm.deactivate("123");
+        homeAlarm.deactivate(code);
         assertTrue(homeAlarm.getState() instanceof DeactivatedAlarm);
     }
 
     @Test
     void TestDangerAlarmBadDeactivation() {
-        homeAlarm.activate("123");
         homeAlarm.activateDangerAlarm();
-        homeAlarm.deactivate("321");
+        homeAlarm.deactivate("---");
         assertTrue(homeAlarm.getState() instanceof ActivatedDangerAlarm);
     }
 }

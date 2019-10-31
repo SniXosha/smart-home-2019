@@ -1,12 +1,13 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
 import ru.sbt.mipt.oop.smarthome.sensorevents.EventDispatcher;
 
 public class HomeRunner {
 
-    private final HomeProcessor homeProcessor;
+    private final EventProcessor homeProcessor;
 
-    public HomeRunner(HomeProcessor homeProcessor) {
+    public HomeRunner(EventProcessor homeProcessor) {
         this.homeProcessor = homeProcessor;
     }
 

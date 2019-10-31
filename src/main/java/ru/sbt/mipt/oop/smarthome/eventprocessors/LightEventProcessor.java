@@ -39,8 +39,7 @@ public class LightEventProcessor implements EventProcessor {
         }
     }
 
-    @Override
-    public boolean isCorrectEvent(Object event) {
+    private boolean isCorrectEvent(Object event) {
         return event instanceof LightSensorEvent;
     }
 }

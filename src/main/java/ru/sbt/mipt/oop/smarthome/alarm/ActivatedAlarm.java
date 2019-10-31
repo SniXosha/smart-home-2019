@@ -16,7 +16,7 @@ public class ActivatedAlarm extends HomeAlarmState {
     @Override
     public void deactivate(String code) {
         if (code.equals(this.code)) {
-            homeAlarm.setState(new DeactivatedAlarm(homeAlarm));
+            homeAlarm.setState(new DeactivatedAlarm(homeAlarm, code));
         } else {
             homeAlarm.setState(new ActivatedDangerAlarm(homeAlarm, this.code));
         }

@@ -17,7 +17,6 @@ public class TriggerAlarm implements EventProcessor {
 
     @Override
     public void processEvent(Object event) {
-        if (!isCorrectEvent(event)) return;
         HomeAlarmState state = homeAlarm.getState();
         if (state instanceof DeactivatedAlarm) {
             delegate.processEvent(event);
@@ -28,10 +27,5 @@ public class TriggerAlarm implements EventProcessor {
         if (state instanceof ActivatedAlarm || state instanceof ActivatedDangerAlarm) {
             signalSender.send("Alarm!!! Denied event (" + event.toString() + ")");
         }
-    }
-
-    @Override
-    public boolean isCorrectEvent(Object event) {
-        return delegate.isCorrectEvent(event);
     }
 }
