@@ -2,6 +2,9 @@ package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.commands.CommandSender;
+import ru.sbt.mipt.oop.smarthome.commands.CommandType;
+import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
@@ -57,6 +60,7 @@ public class HallDoorEventProcessor implements EventProcessor {
                 }
             } else if (obj instanceof Light) {
                 ((Light) obj).setOn(false);
+                CommandSender.sendCommand(new SensorCommand(CommandType.LIGHT_OFF, ((Light) obj).getId()));
             }
         });
     }

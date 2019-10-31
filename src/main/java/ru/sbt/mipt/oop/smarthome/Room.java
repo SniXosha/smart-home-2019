@@ -5,9 +5,8 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
-public class Room implements Actionable, Iterable<Actionable> {
+public class Room implements Actionable {
     private final Collection<Actionable> devices;
     private final String name;
 
@@ -30,10 +29,5 @@ public class Room implements Actionable, Iterable<Actionable> {
         for (Actionable device : devices) {
             device.execute(action);
         }
-    }
-
-    @Override
-    public Iterator<Actionable> iterator() {
-        return devices.iterator();
     }
 }

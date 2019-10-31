@@ -4,18 +4,12 @@ import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 
 import java.util.Collection;
-import java.util.Iterator;
 
-public class SmartHome implements Actionable, Iterable<Actionable> {
+public class SmartHome implements Actionable {
     private final Collection<Actionable> rooms;
 
     public SmartHome(Collection<Actionable> rooms) {
         this.rooms = rooms;
-    }
-
-    @Override
-    public Iterator<Actionable> iterator() {
-        return rooms.iterator();
     }
 
     @Override
