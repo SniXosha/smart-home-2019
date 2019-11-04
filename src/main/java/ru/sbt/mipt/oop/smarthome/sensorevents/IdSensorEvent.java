@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smarthome.sensorevents;
 
-public class IdSensorEvent {
+public class IdSensorEvent implements SensorEvent {
     private final String objectId;
 
     protected IdSensorEvent(String objectId) {

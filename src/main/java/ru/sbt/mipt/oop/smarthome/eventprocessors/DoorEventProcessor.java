@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop.smarthome.eventprocessors;
 import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
 import static ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType.OPEN;
@@ -32,7 +33,7 @@ public class DoorEventProcessor implements EventProcessor {
     }
 
     @Override
-    public void processEvent(Object event) {
+    public void processEvent(SensorEvent event) {
         Action action = parseEvent(event);
         if (action != null) {
             smartHome.execute(action);

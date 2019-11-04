@@ -7,6 +7,7 @@ import ru.sbt.mipt.oop.smarthome.commands.CommandType;
 import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
 import static ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType.CLOSE;
@@ -20,7 +21,7 @@ public class HallDoorEventProcessor implements EventProcessor {
     }
 
     @Override
-    public void processEvent(Object event) {
+    public void processEvent(SensorEvent event) {
         if (!isCorrectEvent(event)) return;
         DoorSensorEvent doorSensorEvent = (DoorSensorEvent) event;
         IsHallDoor isHallDoor = new IsHallDoor(doorSensorEvent.getObjectId());

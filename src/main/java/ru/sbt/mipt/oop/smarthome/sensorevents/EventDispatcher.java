@@ -9,7 +9,7 @@ import ru.sbt.mipt.oop.smarthome.sensorevents.lightevent.LightSensorEvent;
 
 public class EventDispatcher {
 
-    public static Object getNextSensorEvent() {
+    public static SensorEvent getNextSensorEvent() {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         if (Math.random() < 0.01) return null; // null means end of event stream
         if (Math.random() < 0.45) { //door

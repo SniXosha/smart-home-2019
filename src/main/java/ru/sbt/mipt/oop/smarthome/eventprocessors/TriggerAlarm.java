@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import ru.sbt.mipt.oop.smarthome.alarm.*;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.signals.SignalSender;
 
 public class TriggerAlarm implements EventProcessor {
@@ -16,7 +17,7 @@ public class TriggerAlarm implements EventProcessor {
     }
 
     @Override
-    public void processEvent(Object event) {
+    public void processEvent(SensorEvent event) {
         HomeAlarmState state = homeAlarm.getState();
         if (state instanceof DeactivatedAlarm) {
             delegate.processEvent(event);
