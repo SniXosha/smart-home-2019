@@ -1,81 +1,81 @@
 {
   "rooms": [
     {
-      "lights": [
-        {
-          "isOn": false,
-          "id": "1"
-        },
-        {
-          "isOn": true,
-          "id": "2"
-        }
-      ],
-      "doors": [
+      "devices": [
         {
           "id": "1",
-          "isOpen": false
+          "isOn": false,
+          "type": "light"
+        },
+        {
+          "id": "2",
+          "isOn": true,
+          "type": "light"
         }
       ],
       "name": "kitchen"
     },
     {
-      "lights": [
+      "devices": [
         {
+          "id": "3",
           "isOn": true,
-          "id": "3"
-        }
-      ],
-      "doors": [
+          "type": "light"
+        },
         {
           "id": "2",
-          "isOpen": false
+          "isOpen": false,
+          "type": "door"
         }
       ],
       "name": "bathroom"
     },
     {
-      "lights": [
+      "devices": [
         {
+          "id": "4",
           "isOn": false,
-          "id": "4"
+          "type": "light"
         },
         {
+          "id": "5",
           "isOn": false,
-          "id": "5"
+          "type": "light"
         },
         {
+          "id": "6",
           "isOn": false,
-          "id": "6"
-        }
-      ],
-      "doors": [
+          "type": "light"
+        },
         {
           "id": "3",
-          "isOpen": true
+          "isOpen": true,
+          "type": "door"
         }
       ],
       "name": "bedroom"
     },
     {
-      "lights": [
+      "devices": [
         {
+          "id": "7",
           "isOn": false,
-          "id": "7"
+          "type": "light"
         },
         {
+          "id": "8",
           "isOn": false,
-          "id": "8"
+          "type": "light"
         },
         {
+          "id": "9",
           "isOn": false,
-          "id": "9"
-        }
-      ],
-      "doors": [
+          "type": "light"
+        },
         {
           "id": "4",
-          "isOpen": false
+          "isOpen": false,
+          "type": "door"
         }
       ],
       "name": "hall"
