@@ -3,12 +3,12 @@ package ru.sbt.mipt.oop.smarthome.actions.common;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 
-public class IsHallDoor implements Action {
+public class IsHallDoorAction implements Action {
 
     private final String doorId;
     private boolean result = false;
 
-    public IsHallDoor(String doorId) {
+    public IsHallDoorAction(String doorId) {
         this.doorId = doorId;
     }
 

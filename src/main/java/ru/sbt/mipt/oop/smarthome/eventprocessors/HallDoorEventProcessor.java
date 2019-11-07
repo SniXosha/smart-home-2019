@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import ru.sbt.mipt.oop.smarthome.SmartHome;
-import ru.sbt.mipt.oop.smarthome.actions.common.IsHallDoor;
+import ru.sbt.mipt.oop.smarthome.actions.common.IsHallDoorAction;
 import ru.sbt.mipt.oop.smarthome.commands.CommandSender;
 import ru.sbt.mipt.oop.smarthome.commands.CommandType;
 import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
@@ -24,7 +24,7 @@ public class HallDoorEventProcessor implements EventProcessor {
     public void processEvent(SensorEvent event) {
         if (!isCorrectEvent(event)) return;
         DoorSensorEvent doorSensorEvent = (DoorSensorEvent) event;
-        IsHallDoor isHallDoor = new IsHallDoor(doorSensorEvent.getObjectId());
+        IsHallDoorAction isHallDoor = new IsHallDoorAction(doorSensorEvent.getObjectId());
         smartHome.execute(isHallDoor);
         if (!isHallDoor.check()) {
             return;
