@@ -5,10 +5,10 @@ import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
+import ru.sbt.mipt.oop.smarthome.alarm.*;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +21,8 @@ public class SimpleHome implements HomeBuilder {
 
     public SmartHome loadSmartHome() {
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Actionable.class, new DeserializerWithClassName<Actionable>());
+        builder.registerTypeAdapter(Actionable.class, new DeserializerWithClassName<Actionable>())
+                .registerTypeAdapter(HomeAlarm.class, new HomeAlarmDeserializer());
         Gson gson = builder.create();
 
         String json;
@@ -58,10 +59,12 @@ public class SimpleHome implements HomeBuilder {
 
 
         List<Actionable> rooms = Arrays.asList(kitchen, bathroom, bedroom, hall);
-        SmartHome smartHome = new SmartHome(rooms);
+        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm("code"));
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().
-                registerTypeAdapter(Actionable.class, new SerializerWithClassName<Actionable>()).create();
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+                .registerTypeAdapter(Actionable.class, new SerializerWithClassName<Actionable>())
+                .registerTypeAdapter(HomeAlarmState.class, new SerializerWithClassName<HomeAlarmState>())
+                .create();
 
         String jsonString = gson.toJson(smartHome);
         System.out.println(jsonString);

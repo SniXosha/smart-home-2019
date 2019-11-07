@@ -87,5 +87,12 @@
       "name": "hall",
       "className": "ru.sbt.mipt.oop.smarthome.Room"
     }
-  ]
+  ],
+  "homeAlarm": {
+    "code": "code",
+    "state": {
+      "code": "code",
+      "className": "ru.sbt.mipt.oop.smarthome.alarm.DeactivatedAlarm"
+    }
+  }
 }

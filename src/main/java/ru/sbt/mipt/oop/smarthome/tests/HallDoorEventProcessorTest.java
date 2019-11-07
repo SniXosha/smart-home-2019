@@ -2,14 +2,17 @@ package ru.sbt.mipt.oop.smarthome.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 import ru.sbt.mipt.oop.smarthome.*;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+import ru.sbt.mipt.oop.smarthome.alarm.HomeAlarm;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
 import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType;
+import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType;
+import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -42,14 +45,14 @@ class HallDoorEventProcessorTest {
         lights = Arrays.asList(hallLight, bathroomLight);
 
         List<Actionable> rooms = Arrays.asList(hall, bathroom);
-        SmartHome smartHome = new SmartHome(rooms);
+        SmartHome smartHome = new SmartHome(rooms, new HomeAlarm("code"));
 
         eventProcessor = new HallDoorEventProcessor(smartHome);
     }
 
     @Test
     void testCloseHallDoor() {
-        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallDoor.getId()));
+        eventProcessor.processEvent(new DoorSensorEvent(hallDoor.getId(), DoorEventType.CLOSE));
         assertFalse(hallDoor.isOpen());
         for (Light light : lights) {
             assertFalse(light.isOn());
@@ -58,7 +61,7 @@ class HallDoorEventProcessorTest {
 
     @Test
     void testBadId() {
-        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, "badId"));
+        eventProcessor.processEvent(new DoorSensorEvent("badId", DoorEventType.CLOSE));
         assertTrue(hallDoor.isOpen());
         for (Light light : lights) {
             assertTrue(light.isOn());
@@ -67,7 +70,7 @@ class HallDoorEventProcessorTest {
 
     @Test
     void testCloseNotHallDoor() {
-        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, bathroomDoor.getId()));
+        eventProcessor.processEvent(new DoorSensorEvent(bathroomDoor.getId(), DoorEventType.CLOSE));
         assertTrue(bathroomDoor.isOpen());
         for (Light light : lights) {
             assertTrue(light.isOn());
@@ -77,7 +80,7 @@ class HallDoorEventProcessorTest {
     @Test
     void testBadEventType() {
         hallDoor.setOpen(false);
-        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_OPEN, hallDoor.getId()));
+        eventProcessor.processEvent(new DoorSensorEvent(hallDoor.getId(), DoorEventType.OPEN));
         assertFalse(hallDoor.isOpen());
         for (Light light : lights) {
             assertTrue(light.isOn());

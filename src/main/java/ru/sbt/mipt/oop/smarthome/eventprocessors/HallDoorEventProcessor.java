@@ -1,38 +1,15 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import ru.sbt.mipt.oop.smarthome.SmartHome;
-import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.common.IsHallDoor;
 import ru.sbt.mipt.oop.smarthome.commands.CommandSender;
 import ru.sbt.mipt.oop.smarthome.commands.CommandType;
 import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
-import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEventType;
+import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
-class IsHallDoor implements Action {
-
-    private final String doorId;
-    private boolean result = false;
-
-    IsHallDoor(String doorId) {
-        this.doorId = doorId;
-    }
-
-    @Override
-    public void execute(Object obj) {
-        if (obj instanceof Door) {
-            Door door = (Door) obj;
-            if (door.getId().equals(doorId) && door.getRoomName().equals("hall")) {
-                result = true;
-            }
-        }
-    }
-
-    public boolean check() {
-        return result;
-    }
-}
+import static ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType.CLOSE;
 
 public class HallDoorEventProcessor implements EventProcessor {
 
@@ -43,19 +20,22 @@ public class HallDoorEventProcessor implements EventProcessor {
     }
 
     @Override
-    public void processEvent(SensorEvent event) {
-        if (event.getType() != SensorEventType.DOOR_CLOSED) {
-            return;
-        }
-        IsHallDoor isHallDoor = new IsHallDoor(event.getObjectId());
+    public void processEvent(Object event) {
+        if (!isCorrectEvent(event)) return;
+        DoorSensorEvent doorSensorEvent = (DoorSensorEvent) event;
+        IsHallDoor isHallDoor = new IsHallDoor(doorSensorEvent.getObjectId());
         smartHome.execute(isHallDoor);
         if (!isHallDoor.check()) {
             return;
         }
+        closeHallDoorAndTurnOffAllLights(doorSensorEvent);
+    }
+
+    private void closeHallDoorAndTurnOffAllLights(DoorSensorEvent doorSensorEvent) {
         smartHome.execute(obj -> {
             if (obj instanceof Door) {
                 Door door = (Door) obj;
-                if (door.getId().equals(event.getObjectId())) {
+                if (door.getId().equals(doorSensorEvent.getObjectId())) {
                     door.setOpen(false);
                 }
             } else if (obj instanceof Light) {
@@ -63,5 +43,9 @@ public class HallDoorEventProcessor implements EventProcessor {
                 CommandSender.sendCommand(new SensorCommand(CommandType.LIGHT_OFF, ((Light) obj).getId()));
             }
         });
+    }
+
+    private boolean isCorrectEvent(Object event) {
+        return event instanceof DoorSensorEvent && ((DoorSensorEvent) event).getType() == CLOSE;
     }
 }
