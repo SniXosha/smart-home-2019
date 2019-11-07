@@ -1,14 +1,19 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.smarthome.*;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.DoorEventProcessor;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
+import ru.sbt.mipt.oop.smarthome.eventprocessors.LightEventProcessor;
+import ru.sbt.mipt.oop.smarthome.serialization.HomeBuilder;
+import ru.sbt.mipt.oop.smarthome.serialization.SimpleHome;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Application {
+class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         // считываем состояние дома из файла
         HomeBuilder homeBuilder = new SimpleHome();
         SmartHome smartHome = homeBuilder.loadSmartHome();

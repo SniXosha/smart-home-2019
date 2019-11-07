@@ -1,30 +1,33 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.actions.Action;
+import ru.sbt.mipt.oop.smarthome.actions.Actionable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Room {
-    private Collection<Device> devices;
-    private String name;
-
-    public Room(String name, Collection<Device> devices) {
-        this.devices = devices;
-        this.name = name;
-    }
+public class Room implements Actionable {
+    private final Collection<Actionable> devices;
+    private final String name;
 
     public Room(String name) {
-        this(name, new ArrayList<>());
-    }
-
-    public Collection<Device> getDevices() {
-        return devices;
-    }
-
-    public void addDevice(Device device) {
-        devices.add(device);
+        this.devices = new ArrayList<>();
+        this.name = name;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void addActionable(Actionable actionable) {
+        devices.add(actionable);
+    }
+
+    @Override
+    public void execute(Action action) {
+        action.execute(this);
+        for (Actionable device : devices) {
+            device.execute(action);
+        }
     }
 }

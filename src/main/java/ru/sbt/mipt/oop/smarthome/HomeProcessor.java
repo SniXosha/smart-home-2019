@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
+
 import java.util.List;
 
 public class HomeProcessor {
