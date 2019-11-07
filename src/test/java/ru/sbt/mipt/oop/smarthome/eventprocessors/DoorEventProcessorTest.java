@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smarthome.tests;
+package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

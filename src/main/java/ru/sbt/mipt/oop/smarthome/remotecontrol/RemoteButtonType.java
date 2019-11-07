@@ -10,7 +10,11 @@ public enum RemoteButtonType {
     Button3,
     Button4;
 
-    public static RemoteButtonType getFromCode(String code) {
-        return RemoteButtonType.valueOf("Button" + code);
+    public static RemoteButtonType getButtonFromCode(String code) {
+        try {
+            return RemoteButtonType.valueOf("Button" + code);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }

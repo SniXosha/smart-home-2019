@@ -14,12 +14,22 @@ public class SmartHomeRemoteControl implements RemoteControl {
         commands = new HashMap<>();
     }
 
-    public void addCommand(String buttonCode, RemoteControlCommand remoteControlCommand) {
-        commands.put(RemoteButtonType.getFromCode(buttonCode), remoteControlCommand);
+    public void setCommand(String buttonCode, RemoteControlCommand remoteControlCommand) {
+        RemoteButtonType buttonType = RemoteButtonType.getButtonFromCode(buttonCode);
+        if (buttonType != null) commands.put(buttonType, remoteControlCommand);
+    }
+
+    public RemoteControlCommand getCommand(String buttonCode) {
+        RemoteButtonType buttonType = RemoteButtonType.getButtonFromCode(buttonCode);
+        if (buttonCode != null) {
+            return commands.get(buttonType);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void onButtonPressed(String buttonCode, String rcId) {
-        commands.get(RemoteButtonType.getFromCode(buttonCode)).execute();
+        commands.get(RemoteButtonType.getButtonFromCode(buttonCode)).execute();
     }
 }
