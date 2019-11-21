@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
 import ru.sbt.mipt.oop.smarthome.sensorevents.EventDispatcher;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 
-public class HomeRunner {
+class HomeRunner {
 
     private final EventProcessor homeProcessor;
 

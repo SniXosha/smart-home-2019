@@ -4,13 +4,13 @@ import ru.sbt.mipt.oop.smarthome.alarm.*;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.signals.SignalSender;
 
-public class TriggerAlarm implements EventProcessor {
+public class TriggerAlarmDecorator implements EventProcessor {
 
     private final HomeAlarm homeAlarm;
     private final EventProcessor delegate;
     private final SignalSender signalSender;
 
-    public TriggerAlarm(HomeAlarm homeAlarm, EventProcessor delegate, SignalSender signalSender) {
+    public TriggerAlarmDecorator(HomeAlarm homeAlarm, EventProcessor delegate, SignalSender signalSender) {
         this.delegate = delegate;
         this.signalSender = signalSender;
         this.homeAlarm = homeAlarm;
