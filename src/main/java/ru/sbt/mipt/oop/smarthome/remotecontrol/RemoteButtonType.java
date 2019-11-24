@@ -17,4 +17,9 @@ public enum RemoteButtonType {
             return null;
         }
     }
+
+    public static String getCodeFromButton(RemoteButtonType button) {
+        String name = button.name();
+        return name.substring(6);
+    }
 }

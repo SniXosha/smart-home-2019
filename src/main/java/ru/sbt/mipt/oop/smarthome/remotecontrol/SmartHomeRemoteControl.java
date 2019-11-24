@@ -30,6 +30,7 @@ public class SmartHomeRemoteControl implements RemoteControl {
 
     @Override
     public void onButtonPressed(String buttonCode, String rcId) {
-        commands.get(RemoteButtonType.getButtonFromCode(buttonCode)).execute();
+        RemoteButtonType button = RemoteButtonType.getButtonFromCode(buttonCode);
+        if (button != null) commands.get(button).execute();
     }
 }
