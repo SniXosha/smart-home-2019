@@ -1,10 +1,12 @@
 package ru.sbt.mipt.oop.smarthome;
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.smarthome.eventprocessors.EventProcessor;
 import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 
 import java.util.List;
 
+@Component
 public class HomeProcessor implements EventProcessor{
 
     private final List<EventProcessor> processors;

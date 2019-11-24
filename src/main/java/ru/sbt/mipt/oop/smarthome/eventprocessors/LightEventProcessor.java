@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
@@ -8,6 +9,7 @@ import ru.sbt.mipt.oop.smarthome.sensorevents.lightevent.LightSensorEvent;
 
 import static ru.sbt.mipt.oop.smarthome.sensorevents.lightevent.LightEventType.ON;
 
+@Component
 public class LightEventProcessor implements EventProcessor {
 
     private final SmartHome smartHome;

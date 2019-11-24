@@ -5,7 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 
-public class SpringApplication {
+class SpringApplication {
 
     public static void main(String[] args) {
         AbstractApplicationContext context = new AnnotationConfigApplicationContext(SmartHomeConfiguration.class);

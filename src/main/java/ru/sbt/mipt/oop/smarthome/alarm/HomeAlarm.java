@@ -4,12 +4,9 @@ import ru.sbt.mipt.oop.smarthome.actions.Action;
 import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 
 public class HomeAlarm implements Alarm, Actionable {
-
-    private final String code;
     private HomeAlarmState state;
 
     public HomeAlarm(String code) {
-        this.code = code;
         this.state = new DeactivatedAlarm(this, code);
     }
 
