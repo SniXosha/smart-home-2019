@@ -30,10 +30,4 @@ public class Room implements Actionable {
             device.execute(action);
         }
     }
-
-    public void debug() {
-        for (Actionable device : devices) {
-            System.out.println(device);
-        }
-    }
 }

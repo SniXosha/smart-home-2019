@@ -19,7 +19,6 @@ import java.util.List;
 
 @Configuration
 @ComponentScan
-@Import(RemoteControlConfiguration.class)
 public class SmartHomeConfiguration {
     @SuppressWarnings("SpringJavaAutowiredFieldsWarningInspection")
     @Autowired

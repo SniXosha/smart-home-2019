@@ -21,13 +21,14 @@ public class RemoteControlConfiguration {
     }
 
     @Bean
-    RemoteControl remoteControl(RemoteControlCommand[] commands) {
-
-        RemoteButtonType[] buttons = RemoteButtonType.values();
+    RemoteControl remoteControl(SmartHome smartHome) {
         SmartHomeRemoteControl smartHomeRemoteControl = new SmartHomeRemoteControl();
-        for (int i = 0; i < commands.length; i++) {
-            smartHomeRemoteControl.setCommand(RemoteButtonType.getCodeFromButton(buttons[i]), commands[i]);
-        }
+        smartHomeRemoteControl.setCommand("A", activateAlarmCommand(smartHome));
+        smartHomeRemoteControl.setCommand("B", activateDangerAlarmCommand(smartHome));
+        smartHomeRemoteControl.setCommand("C", closeHallDoorCommand(smartHome));
+        smartHomeRemoteControl.setCommand("D", turnOffAllLightsCommand(smartHome));
+        smartHomeRemoteControl.setCommand("1", turnOnAllLightsCommand(smartHome));
+        smartHomeRemoteControl.setCommand("2", turnOnLightsInHallCommand(smartHome));
         remoteControlRegistry().registerRemoteControl(smartHomeRemoteControl, RC_ID);
         return smartHomeRemoteControl;
     }
