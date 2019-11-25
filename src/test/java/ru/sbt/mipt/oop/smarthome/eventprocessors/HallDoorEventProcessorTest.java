@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.smarthome.tests;
+package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import ru.sbt.mipt.oop.smarthome.actions.Actionable;
 import ru.sbt.mipt.oop.smarthome.alarm.HomeAlarm;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
-import ru.sbt.mipt.oop.smarthome.eventprocessors.HallDoorEventProcessor;
 import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType;
 import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
