@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.smarthome.sensorevents.alarmevent;
 
-public class AlarmSensorEvent {
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
+
+public class AlarmSensorEvent implements SensorEvent {
     private final String code;
     private final AlarmEventType type;
 

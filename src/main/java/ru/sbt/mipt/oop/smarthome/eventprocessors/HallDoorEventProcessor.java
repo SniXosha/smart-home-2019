@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop.smarthome.eventprocessors;
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.smarthome.SmartHome;
 import ru.sbt.mipt.oop.smarthome.actions.common.IsHallDoor;
 import ru.sbt.mipt.oop.smarthome.commands.CommandSender;
@@ -7,10 +8,12 @@ import ru.sbt.mipt.oop.smarthome.commands.CommandType;
 import ru.sbt.mipt.oop.smarthome.commands.SensorCommand;
 import ru.sbt.mipt.oop.smarthome.devices.Door;
 import ru.sbt.mipt.oop.smarthome.devices.Light;
+import ru.sbt.mipt.oop.smarthome.sensorevents.SensorEvent;
 import ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorSensorEvent;
 
 import static ru.sbt.mipt.oop.smarthome.sensorevents.doorevent.DoorEventType.CLOSE;
 
+@Component
 public class HallDoorEventProcessor implements EventProcessor {
 
     private final SmartHome smartHome;
@@ -20,7 +23,7 @@ public class HallDoorEventProcessor implements EventProcessor {
     }
 
     @Override
-    public void processEvent(Object event) {
+    public void processEvent(SensorEvent event) {
         if (!isCorrectEvent(event)) return;
         DoorSensorEvent doorSensorEvent = (DoorSensorEvent) event;
         IsHallDoor isHallDoor = new IsHallDoor(doorSensorEvent.getObjectId());

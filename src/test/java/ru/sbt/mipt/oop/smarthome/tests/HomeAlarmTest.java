@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HomeAlarmTest {
 
     private HomeAlarm homeAlarm;
-    private String code = "123";
+    private final String code = "123";
 
     @BeforeEach
     void setUp() {
